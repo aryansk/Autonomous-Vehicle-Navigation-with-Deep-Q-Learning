@@ -241,4 +241,4 @@ For support, email your.email@example.com or open an issue in the GitHub reposit
 
 ---
 
-Made with 🚗 and 🧠 by [Your Name]
+Made with 🚗 and 🧠 by Aryan Singh
