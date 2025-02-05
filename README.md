@@ -1,244 +1,189 @@
-# 🚗 Autonomous Vehicle Navigation with Deep Q-Learning
+# Autonomous Vehicle Navigation 🚗🎮
 
-A PyTorch implementation of Deep Q-Network (DQN) for training an autonomous vehicle to navigate through obstacles in a 2D environment, featuring real-time visualization and comprehensive performance metrics.
+![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
+![PyTorch](https://img.shields.io/badge/PyTorch-latest-orange.svg)
+![Pygame](https://img.shields.io/badge/Pygame-latest-green.svg)
+![Gymnasium](https://img.shields.io/badge/Gymnasium-latest-red.svg)
+![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
-![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-orange)
-![Gymnasium](https://img.shields.io/badge/Gymnasium-0.29.0-green)
-![Pygame](https://img.shields.io/badge/Pygame-2.5.0-red)
-![License](https://img.shields.io/badge/License-MIT-purple)
+A reinforcement learning implementation for autonomous vehicle navigation using Deep Q-Learning (DQN). This project demonstrates how to train an AI agent to navigate through obstacles to reach a goal.
+
+## 📖 Table of Contents
+- [Project Overview](#-project-overview)
+- [Technical Features](#-technical-features)
+- [Installation & Setup](#-installation--setup)
+- [Implementation Details](#-implementation-details)
+- [Training Process](#-training-process)
+- [Performance Analysis](#-performance-analysis)
+- [Development](#-development)
+- [Contributing](#-contributing)
 
 ## 🎯 Project Overview
 
-This project implements a Deep Q-Learning agent that learns to navigate a vehicle through a field of obstacles to reach a goal position. The environment features real-time visualization using Pygame and comprehensive training metrics visualization using Matplotlib and Seaborn.
+### 🤖 Core Components
+- **Visualization Engine**: Pygame-based rendering system
+- **Environment**: Custom Gymnasium environment for vehicle navigation
+- **DQN Agent**: PyTorch implementation of Deep Q-Learning
+- **Training System**: Complete pipeline with experience replay
+- **Analytics**: Real-time performance monitoring and visualization
 
-## 🌟 Features
+### 🎮 Key Features
+- Real-time visualization of training process
+- Dynamic obstacle generation
+- Customizable environment parameters
+- Comprehensive performance metrics
+- Path visualization through heatmaps
 
-### 🎮 Environment
-- Custom Gymnasium environment with Pygame visualization
-- Real-time rendering of vehicle, obstacles, and goal
-- On-screen metrics display (episode, step, reward, epsilon)
-- Configurable screen dimensions and object sizes
+## 🛠 Technical Architecture
 
-### 📊 Visualization & Metrics
-- Real-time training visualization
-- Comprehensive training metrics plotting:
-  - Episode scores with moving average
-  - Epsilon decay curve
-  - Success rate tracking
-- Path heatmap generation
-- Interactive display with FPS control
-
-### 🤖 AI Agent
-- Deep Q-Network with experience replay
-- Epsilon-greedy exploration strategy
-- Soft target network updates
-- Configurable hyperparameters
-
-## 🛠️ Technical Details
-
-### Environment Parameters
-```python
-CONSTANTS = {
-    'SCREEN_WIDTH': 800,
-    'SCREEN_HEIGHT': 600,
-    'VEHICLE_SIZE': 20,
-    'OBSTACLE_SIZE': 30,
-    'N_OBSTACLES': 10
-}
-
-COLORS = {
-    'BLUE': (0, 0, 255),
-    'RED': (255, 0, 0),
-    'GREEN': (0, 255, 0),
-    'BLACK': (0, 0, 0),
-    'WHITE': (255, 255, 255)
-}
+### System Components
+```mermaid
+graph TD
+    A[Vehicle Environment] --> B[DQN Agent]
+    B --> C[Training Loop]
+    C --> D[Experience Replay]
+    D --> B
+    B --> E[Visualization]
+    C --> F[Performance Metrics]
 ```
 
-### Agent Architecture
+### Dependencies
 ```python
-DQN_ARCHITECTURE = {
-    'input_layer': state_size,
-    'hidden_layer_1': 128,
-    'hidden_layer_2': 64,
-    'output_layer': action_size,
-    'activation': 'ReLU'
-}
+# requirements.txt
+numpy>=1.20.0
+torch>=1.9.0
+pygame>=2.0.0
+gymnasium>=0.26.0
+matplotlib>=3.4.0
+seaborn>=0.11.0
 ```
 
-### Training Parameters
-```python
-TRAINING_PARAMS = {
-    'n_episodes': 1000,
-    'buffer_size': 10000,
-    'batch_size': 64,
-    'gamma': 0.99,
-    'tau': 1e-3,
-    'epsilon_start': 1.0,
-    'epsilon_min': 0.01,
-    'epsilon_decay': 0.995
-}
-```
+## 💻 Installation & Setup
 
-## 📦 Requirements
+### System Requirements
+- Python 3.8+
+- 8GB RAM (minimum)
+- CUDA-compatible GPU (recommended)
+- 5GB storage
 
+### Quick Start
 ```bash
+# Clone repository
+git clone https://github.com/yourusername/autonomous-vehicle-nav.git
+
+# Navigate to project
+cd autonomous-vehicle-nav
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+.\venv\Scripts\activate   # Windows
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-Required packages:
-```
-numpy
-torch
-gymnasium
-pygame
-matplotlib
-seaborn
-```
-
-## 🚀 Installation & Usage
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/autonomous-vehicle-dqn.git
-cd autonomous-vehicle-dqn
-```
-
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-3. Run training with visualization:
-```bash
-python main.py
-```
-
-## 📊 Visualization Components
-
-### Real-time Display
-- Vehicle position and movement
-- Obstacle placement
-- Goal location
-- Current episode metrics
-- Training parameters
-
-### Training Metrics
-- Episode scores plot
-- Moving average score
-- Epsilon decay visualization
-- Success rate tracking
-
-### Analysis Tools
-- Path heatmap generation
-- Visitation frequency analysis
-- Obstacle influence visualization
-
-## 📁 Project Structure
-
-```
-├── main.py
-├── requirements.txt
-├── models/
-│   └── checkpoint.pth
-├── visualizations/
-│   ├── training_metrics.png
-│   └── path_heatmap.png
-└── results/
-    └── training_stats.csv
-```
-
-## 🔍 Classes
-
-### Visualizer
-- Handles Pygame initialization and rendering
-- Real-time metrics display
-- Frame rate control
-- Environment state visualization
-
-### VehicleEnv
-- Custom Gymnasium environment
-- Obstacle generation and management
-- Collision detection
-- Reward calculation
-
-### DQNAgent
-- Neural network management
-- Experience replay handling
-- Training and inference logic
-- Hyperparameter management
-
-## 📈 Performance Metrics
-
-### Training Metrics
-- Episode reward
-- Moving average score (100 episodes)
-- Exploration rate decay
-- Success rate tracking
-
-### Visualization Metrics
-- Path heatmap
-- Obstacle influence
-- Goal reaching patterns
-- Navigation efficiency
-
-## 🔧 Configuration
+## 🔬 Implementation Details
 
 ### Environment Configuration
 ```python
-env_config = {
-    'render_mode': 'human',  # or None for headless training
-    'screen_size': (800, 600),
-    'fps': 30
-}
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+VEHICLE_SIZE = 20
+OBSTACLE_SIZE = 30
+N_OBSTACLES = 10
 ```
 
-### Training Configuration
+### DQN Architecture
 ```python
-training_config = {
-    'n_episodes': 1000,
-    'plot_interval': 10,
-    'save_interval': 100
-}
+class DQN(nn.Module):
+    def __init__(self, input_size, output_size):
+        super().__init__()
+        self.network = nn.Sequential(
+            nn.Linear(input_size, 128),
+            nn.ReLU(),
+            nn.Linear(128, 64),
+            nn.ReLU(),
+            nn.Linear(64, output_size)
+        )
+```
+
+## 📈 Training Process
+
+### Hyperparameters
+- Learning Rate: 0.001 (Adam optimizer)
+- Discount Factor (γ): 0.99
+- Epsilon Decay: 0.995
+- Minimum Epsilon: 0.01
+- Replay Buffer Size: 10,000
+- Batch Size: 64
+
+### Reward Structure
+- Goal Reached: +100
+- Obstacle Collision: -50
+- Step Penalty: -0.1
+
+## ⚡ Performance Analysis
+
+### Metrics Tracked
+- Episode Scores
+- Success Rate
+- Epsilon Decay
+- Path Distribution
+
+### Visualization Tools
+```python
+def plot_training_metrics(scores, epsilons, success_rate):
+    plt.figure(figsize=(15, 10))
+    # Plot scores, epsilon decay, and success rate
+```
+
+## 👨‍💻 Development
+
+### Project Structure
+```
+autonomous-vehicle/
+├── src/
+│   ├── environment.py
+│   ├── agent.py
+│   ├── visualization.py
+│   └── training.py
+├── notebooks/
+│   └── analysis.ipynb
+├── tests/
+│   └── test_env.py
+├── requirements.txt
+└── README.md
+```
+
+### Run Training
+```python
+if __name__ == "__main__":
+    scores, epsilons, success_rate = train_agent()
 ```
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create your feature branch
-3. Implement your changes
-4. Add tests if applicable
-5. Submit a pull request
+### Guidelines
+1. Fork repository
+2. Create feature branch
+3. Follow PEP 8 style guide
+4. Add unit tests
+5. Submit pull request
 
-## 📜 License
+### Development Workflow
+- Use virtual environment
+- Run tests before committing
+- Update documentation
+- Maintain clean notebook outputs
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-- Gymnasium documentation
-- PyTorch tutorials
+- PyTorch team
+- Gymnasium maintainers
 - Pygame community
-- DQN paper (Mnih et al., 2015)
-
-## 👤 Author
-
-Your Name
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
-
-## 📞 Support
-
-For support, email your.email@example.com or open an issue in the GitHub repository.
-
-## 📚 References
-
-1. Mnih, V., et al. (2015). Human-level control through deep reinforcement learning
-2. Pygame documentation
-3. Gymnasium environment guide
-4. PyTorch DQN tutorial
-
----
-
-Made with 🚗 and 🧠 by Aryan Singh
+- OpenAI for DQN architecture inspiration
